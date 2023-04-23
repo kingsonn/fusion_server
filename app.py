@@ -8,16 +8,16 @@ import pickle
 import numpy as np
 import pandas as pd
 stripe.api_key = 'sk_test_51MWG4bSIlus8ySuKQKbDh3nGdHjtqaW5zylFXa1fy8Y3jp2L86JBuzBJJTAprVBedgd0Z5IXzBIgOEVfyQCljDGK00lgq89Mje'
-popular_df= pickle.load(open('server\popular.pkl','rb'))
-pt= pickle.load(open('server\pt.pkl','rb'))
-similarity_scores= pickle.load(open('server\similarity_scores.pkl','rb'))
-items= pickle.load(open('server\items.pkl','rb'))
-cf= pickle.load(open('server\cf.pkl','rb'))
-similarity= pickle.load(open('server\similarity.pkl','rb'))
+popular_df= pickle.load(open('/popular.pkl','rb'))
+pt= pickle.load(open('/pt.pkl','rb'))
+similarity_scores= pickle.load(open('/similarity_scores.pkl','rb'))
+items= pickle.load(open('/items.pkl','rb'))
+cf= pickle.load(open('/cf.pkl','rb'))
+similarity= pickle.load(open('/similarity.pkl','rb'))
 app = Flask(__name__)
 app.config["DEBUG"] = True
 endpoint_secret = 'whsec_BK84hvaiziq2x7l7IqaLStkppcGYsV3z'
-cred = credentials.Certificate("C://Users//hanso//Projects//FUSION-//server//canteen.json")
+cred = credentials.Certificate("/canteen.json")
 fstore = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
