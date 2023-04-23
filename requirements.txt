@@ -4,4 +4,4 @@ stripe
 numpy
 pandas
 firebase-admin
-gunicorn
+gunicorn==20.0.4
