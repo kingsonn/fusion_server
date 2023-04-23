@@ -20,7 +20,7 @@ pt= pickle.load(open('./pt.pkl','rb'))
 similarity_scores= pickle.load(open('./similarity_scores.pkl','rb'))
 items= pickle.load(open('./items.pkl','rb'))
 cf= pickle.load(open('./cf.pkl','rb'))
-similarity= pickle.load(open('\./similarity.pkl','rb'))
+similarity= pickle.load(open('./similarity.pkl','rb'))
 # app = Flask(__name__)
 YOUR_DOMAIN = 'http://quickteen-v1.vercel.app'
 @app.route('/')
