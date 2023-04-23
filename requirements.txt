@@ -4,3 +4,4 @@ stripe
 numpy
 pandas
 firebase-admin
+gunicorn
