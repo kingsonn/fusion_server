@@ -2,6 +2,6 @@ Flask
 Flask-Cors
 stripe
 numpy
-pandas
+pandas==1.5.3
 firebase-admin
 gunicorn
