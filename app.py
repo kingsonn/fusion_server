@@ -6,7 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import pickle
 import numpy as np
-import pandas as pd
+
 stripe.api_key = 'sk_test_51MWG4bSIlus8ySuKQKbDh3nGdHjtqaW5zylFXa1fy8Y3jp2L86JBuzBJJTAprVBedgd0Z5IXzBIgOEVfyQCljDGK00lgq89Mje'
 
 app = Flask(__name__)
@@ -15,6 +15,7 @@ endpoint_secret = 'whsec_BK84hvaiziq2x7l7IqaLStkppcGYsV3z'
 cred = credentials.Certificate("canteen.json")
 fstore = firebase_admin.initialize_app(cred)
 db = firestore.client()
+popular_df= pickle.load(open('server\popular.pkl','rb'))
 
 # app = Flask(__name__)
 YOUR_DOMAIN = 'http://quickteen-v1.vercel.app'
@@ -104,7 +105,10 @@ def webhook():
     return jsonify(success=True)
 
 
-
+@app.route('/getpopular', methods=['POST'])
+@cross_origin()
+def get_popular():
+    return list(popular_df['Item_name'].values)
 
 if __name__ == '__main__':
     app.run(port=4242)
