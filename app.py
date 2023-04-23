@@ -15,7 +15,7 @@ endpoint_secret = 'whsec_BK84hvaiziq2x7l7IqaLStkppcGYsV3z'
 cred = credentials.Certificate("canteen.json")
 fstore = firebase_admin.initialize_app(cred)
 db = firestore.client()
-popular_df= pickle.load(open('server\popular.pkl','rb'))
+popular_df= pickle.load(open('./popular.pkl','rb'))
 
 # app = Flask(__name__)
 YOUR_DOMAIN = 'http://quickteen-v1.vercel.app'
