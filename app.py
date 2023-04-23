@@ -16,7 +16,11 @@ cred = credentials.Certificate("canteen.json")
 fstore = firebase_admin.initialize_app(cred)
 db = firestore.client()
 popular_df= pickle.load(open('./popular.pkl','rb'))
-
+pt= pickle.load(open('./pt.pkl','rb'))
+similarity_scores= pickle.load(open('./similarity_scores.pkl','rb'))
+items= pickle.load(open('./items.pkl','rb'))
+cf= pickle.load(open('./cf.pkl','rb'))
+similarity= pickle.load(open('\./similarity.pkl','rb'))
 # app = Flask(__name__)
 YOUR_DOMAIN = 'http://quickteen-v1.vercel.app'
 @app.route('/')
@@ -109,6 +113,44 @@ def webhook():
 @cross_origin()
 def get_popular():
     return list(popular_df['Item_name'].values)
+
+def recommend(Items):
+    # index fetch
+    index = np.where(pt.index==Items)[0][0]
+    similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:6]
+    
+    data = []
+    for i in similar_items:
+        item = []
+        temp_df = items[items['Items'] == pt.index[i[0]]]
+        item.extend(list(temp_df.drop_duplicates('Items')['Items'].values))
+
+        
+        data.append(item[0])
+    
+    return data
+
+def recommend1(food):
+    l=[]
+    index = cf[cf['Item_name'] == food].index[0]
+    distances = sorted(list(enumerate(similarity[index])),reverse=True,key = lambda x: x[1])
+    for i in distances[1:6]:
+        l.append(cf.iloc[i[0]].Item_name)
+        
+    return l
+   
+def hybrid(item):
+    a=recommend1(item)
+    b=list(map(recommend,a))
+    return b
+
+@app.route('/recommend', methods=['POST'])
+@cross_origin()
+def get_recommendations():
+    data=request.json['yo']
+    print(data)
+    return list(np.unique(list(np.unique(hybrid(data)))+list(recommend1(data))))
+
 
 if __name__ == '__main__':
     app.run(port=4242)
