@@ -23,6 +23,11 @@ db = firestore.client()
 
 # app = Flask(__name__)
 YOUR_DOMAIN = 'http://quickteen-v1.vercel.app'
+@app.route('/')
+@cross_origin()
+def index():
+    return "<h1>hello</h1>"
+
 @app.route('/create-checkout-session', methods=['POST'])
 @cross_origin()
 def create_checkout_session():
