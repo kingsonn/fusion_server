@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+stripe
+numpy
+pandas
+pickle
+firebase-admin
